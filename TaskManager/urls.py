@@ -1,8 +1,8 @@
-"""
-URL configuration for TaskManager project.
+
+"""tast URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
+    https://docs.djangoproject.com/en/4.1/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -15,8 +15,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-
+from django.urls import path,include
+from taskapp import views
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('', views.HomeView.as_view() , name='home'),
+    path('register/', views.register, name='register'),
+    path('login/',views.login, name='login'),
+    path('task/',views.TaskView.as_view(), name='task'),
+    path('create/',views.CreateTask.as_view(), name='create'),
+    path('<int:pk>',views.OneTask.as_view(), name='onetask'),
+    path('delete', views.DeleteTask.as_view(), name='delete_task'),
+    path('update/<int:pk>/',views.UpdateTask.as_view(), name='update'),
+    path('taskapi/',views.TaskApi.as_view()),
+    path('taskapi/<int:pk>/', views.TaskApi.as_view()),
+
+    
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

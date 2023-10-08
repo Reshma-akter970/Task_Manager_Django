@@ -1,0 +1,33 @@
+{%extends 'taskapp/base.html'%}
+{% load static %}
+{%block title%}
+Home-page
+{%endblock%}
+{%block css %} <link rel="stylesheet" href="{% static 'taskapp/css/style.css'%}">{%endblock%}
+{%block content%}
+<div class="container col-md-7 mb-5 shadow mt-2 p-2 bgcolor">
+    <h1 class="text-center p-1" id="deltailid"><b>Task Details</b></h1>
+            <div class="row col-md-12 d-flex justify-content-center">
+                <div class="col-md-7 mb-3">
+                    <div class="card shadow p-4 mb-3">
+                        <img src="{{onetask.taskimage.url}}" class="card-img-top" width=100rem height="200rem"  alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">{{onetask.title}}</h5>
+                        <p class="card-text">{{onetask.description}}</p>
+                        <p>Task No: {{onetask.id}}</p>
+                        <p>Created At: {{onetask.created_at}}</p>
+                        <p>Due Date: {{onetask.due_date}}</p>
+                        <p>Priority: {{onetask.priority}}</p>
+                        <a href="{% url 'task' %}" class="btn btn-primary">Go back</a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+
+
+        
+        </div>
+    </div>
+{%endblock%}

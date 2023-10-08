@@ -1,0 +1,72 @@
+{%extends 'taskapp/base.html'%}
+{%block title%}
+Tasks
+{%endblock%}
+
+
+
+{%block content %}
+
+
+<div class="container col-md-10">
+  <h1 class=" p-3 text-center ">List of Tasks</h1>
+  <div class="row">
+    <div class="col d-flex justify-content-end mb-3">
+        
+          <form class="d-flex" action= "" method="get">
+            {%csrf_token%}
+            <input class="form-control me-2" name="searchtitle" type="text" placeholder="Search by Title">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          
+    </div>
+  </div>
+      <table class="table caption-top  table-success table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Serial No</th>
+            <th scope="col">Title</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Level</th>
+            <th scope="col">Users</th>
+            <th scope="col">Action</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          {%for task in tasks%}
+          <tr>
+            <th scope="row">{{task.pk}}</th>
+            <td>{{task.title}}</td>
+            <td>{{task.due_date}}</td>
+            <td>{{task.priority}}</td>
+            <td>{{task.level}}</td>
+            <td>{{task.user}}</td>
+            <td>
+                <div class="mx-auto d-flex">
+                    <a class="btn  btn-success btn-sm" style="margin-right: 2px;" href="{% url 'onetask' task.id %}">View</a>
+                    <a class="btn  btn-warning btn-sm btn-lg" style="margin-right: 2px;" href="{% url 'update' task.id %}">&#9998;Update</a>
+                    <form action="{%url 'delete_task'%}" method="POST">
+                      {% csrf_token %}
+                      <input type="hidden" name="id" value={{task.id}}>
+                      <input type="submit" value="Delete" class="btn  btn-danger btn-sm">
+                    </form>
+                </div>
+            </td>
+          </tr>
+          {%endfor%}
+      
+        </tbody>
+      </table>
+      <div class=" mx-auto">
+        <a class="btn  btn-success btn-lg" href="{% url 'create' %}">&#10010;<span style="margin-left: 3px;">Add</span></a>
+      
+        
+      
+    
+    </div>
+</div>
+
+
+{%endblock%}
